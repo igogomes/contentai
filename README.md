@@ -20,6 +20,7 @@ This module requires the following modules:
 
 * Metatag - https://www.drupal.org/project/metatag
 * OpenAI / ChatGPT / AI Search Integration - https://www.drupal.org/project/openai
+* Workflow - https://www.drupal.org/project/workflow
 
 ## RECOMMENDED MODULES
 
@@ -50,3 +51,15 @@ Once you have configured the settings, you can simply go to the article edition 
 The generated content will be inserted into the page title, description, and keywords fields under Basic tags in the Description section. You can find the Meta Content AI and Description sections in the right column of the article creation/edit page.
 
 It is important to note that the Meta Content AI section will only be displayed after you have saved the initial text of the article (in the Body field), as this content will be used for automatic generation through GPT. With Content AI, you can save time and effort while producing high-quality content that meets your needs.
+
+### Translation
+
+The translation feature is a powerful tool that enables you to translate articles and pages into different languages. You can access these types of content through the /admin/content page.
+
+To translate an already published article or page, click on the Edit button, and then select the Translate AI option located above the title. You can then choose one or more languages from the available options and click Translate. This will generate a new translated version of the article or page in the selected language(s), which will have the status of unpublished.
+
+It is important to note that if you update an article or page, you must also update any previously made translations. To do so, you must access the Translate AI tab within the updated article or page, select the language(s) you want to translate, and click the Translate button. If a language has already been translated, it will be displayed with the option to "overwrite translation".
+
+After a translation has been made or updated, its status changes to Unpublished. It is crucial to check that the article or page is properly available and published.
+
+If you select more than one language to translate, the processing time may increase. Therefore, it is important to consider the number of languages selected before initiating the translation process.
