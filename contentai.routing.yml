@@ -1,0 +1,18 @@
+contentai.api_settings:
+  path: '/admin/config/contentai/settings'
+  defaults:
+    _title: 'Content AI settings'
+    _form: 'Drupal\contentai\Form\ContentAISettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
+contentai.translate_ai:
+  path: '/node/{node}/translate_ai'
+  defaults:
+    _title: 'Translate AI'
+    _form: 'Drupal\contentai\Form\TranslationAIForm'
+  requirements:
+    _entity_access: 'node.update'
+  options:
+    parameters:
+      node:
+        type: 'entity:node'

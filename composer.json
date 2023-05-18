@@ -1,0 +1,33 @@
+{
+    "name": "drupal/contentai",
+    "description": "Generate automatically content for article SEO fields using AI.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Nicole Fonseca",
+            "homepage": "https://www.drupal.org/u/nicole_cf",
+            "role": "Developer"
+        },
+        {
+            "name": "Igo Gomes",
+            "homepage": "https://www.drupal.org/u/igogomes",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+      {
+          "type": "composer",
+          "url": "https://packages.drupal.org/8"
+      }
+    ],
+    "require": {
+        "drupal/core": "^10",
+        "drupal/metatag": "^1.22",
+        "drupal/openai": "^1.0@alpha"
+    },
+    "require-dev": {
+        "drupal/metatag": "^1.22",
+        "drupal/openai": "^1.0@alpha"
+    }
+}

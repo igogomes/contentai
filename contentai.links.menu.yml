@@ -1,0 +1,6 @@
+contentai.content_settings:
+  title: Content AI
+  description: Manage questions to use in content.
+  parent: openai.admin_config_openai
+  route_name: contentai.api_settings
+  weight: -100

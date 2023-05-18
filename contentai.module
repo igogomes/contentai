@@ -1,0 +1,93 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\openai\Utility\StringHelper;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
+
+const SELECTOR = 2;
+const SETTINGS = 'contentai.settings';
+
+/**
+ * Implements hook_form_NODE_TYPE_FORM_ID_alter().
+ */
+function contentai_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+
+  $account = \Drupal::currentUser();
+
+  if (preg_match('/node_(add|.*_edit)_form/', $form_id)) {
+    $form['contentai_edit'] = [
+      '#type' => 'details',
+      '#title' => t('Meta Content AI'),
+      '#group' => 'advanced',
+      '#tree' => TRUE,
+    ];
+
+    $form['contentai_edit']['message'] = [
+      '#markup' => t('Have contentai check your content and adjust the tone of it for different reader audiences for you.'),
+    ];
+
+    $form['contentai_edit']['checkbox'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Select Fields'),
+      '#options' => [
+        'description' => 'Description',
+        'title' => 'Title',
+        'keywords' => 'Keywords',
+      ]
+    );
+
+    $form['contentai_edit']['submit'] = array(
+      '#type' => 'button',
+      '#value' => t('Generate'),
+      '#limit_validation_errors' => [],
+      '#ajax' => [
+        'callback' => 'contentai_content_node_suggest',
+        'wrapper' => 'contentai-suggest-response',
+      ],
+    );
+  }
+}
+
+/**
+ * The AJAX callback for suggesting taxonomy.
+ *
+ * @param array $form
+ *   The node form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return \Drupal\Core\Ajax\AjaxResponse
+ *   The HTML response.
+ */
+function contentai_content_node_suggest(array &$form, FormStateInterface $form_state) {
+
+  $body = $form_state->getValue('body')[0]['value'];
+
+  if (!empty($body)) {
+
+    $checkbox = $form_state->getValue('contentai_edit')['checkbox'];
+    $body = StringHelper::prepareText($body, [], 3900);
+    $contentAIService = \Drupal::service('contentai.contentAIService');
+    $fields = array_keys($checkbox, true);
+    $texts = $contentAIService->getContent($body, $fields);
+
+  } else {
+    $text = t('The body field has no text. Please supply content to the body field.');
+  }
+
+  $response = new AjaxResponse();
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable(SETTINGS);
+
+  foreach ($texts as $field => $value) {
+    $selector = $config->get($field)[SELECTOR];
+    $response->addCommand(new InvokeCommand($selector, 'val', [$value]));
+  }
+
+  return $response;
+}
+
+?>

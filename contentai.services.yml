@@ -1,0 +1,3 @@
+services:
+  contentai.contentAIService:
+    class: Drupal\contentai\Services\ContentAIService
