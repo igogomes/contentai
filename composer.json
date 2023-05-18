@@ -15,12 +15,6 @@
             "role": "Developer"
         }
     ],
-    "repositories": [
-      {
-          "type": "composer",
-          "url": "https://packages.drupal.org/8"
-      }
-    ],
     "require": {
         "drupal/core": "^10",
         "drupal/metatag": "^1.22",
