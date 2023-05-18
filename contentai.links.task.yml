@@ -1,4 +1,0 @@
-contentai.admin: # The first plugin ID
-  route_name: contentai.translate_ai
-  title: 'Translate AI'
-  base_route: entity.node.canonical

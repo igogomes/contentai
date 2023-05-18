@@ -16,9 +16,7 @@
         }
     ],
     "require": {
-        "drupal/core": "^10",
-        "drupal/metatag": "^1.22",
-        "drupal/openai": "^1.0@alpha"
+        "drupal/core": "^10"
     },
     "require-dev": {
         "drupal/metatag": "^1.22",
